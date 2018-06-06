@@ -1,0 +1,117 @@
+﻿@model IEnumerable<LostStuffs.Entities.LostStuff>
+
+@{
+    ViewBag.Title = "Lost stuffs";
+    var lastPosted = (List<LostStuffs.Entities.LostStuff>)ViewData["MyData"]; // Cast the list
+    var userId = (string)ViewData["CurrentUserId"];
+    var userName = (string)ViewData["CurrentUserName"];
+
+}
+<hr />
+
+<div class="pull-right" style=" margin-right:-4%; background-color:#f99393;width: 15em;">
+    <h3>Latest posts</h3>
+
+    @foreach (var item in lastPosted)
+    {
+
+
+        <div class="container body-content" style="border:1px solid black;margin-bottom:3%">
+
+            <a href="/LostStuffs/Details/@item.Id" style="color:black;">
+                @Html.DisplayFor(modelItem => item.Name)<br>
+                <img src="@Url.Content(item.ImagePath)" width="100" height="100" style=" position:relative;margin-bottom:13%;border:1px solid black;margin-left:13%" />
+            </a>
+
+            <br />
+            <div class="table-bordered" style="border-top:1px solid black;border-bottom:1px solid black; background-color:aquamarine">
+                @item.Description <br />
+            </div>
+            <h6>Reward :@item.Price</h6>
+           
+
+            <label>Published at:</label>
+            @item.CreatedAt.ToString("dd.MM hh:mm")<br />
+
+            <label>by: @item.UserName</label>
+            @{
+                if (userId != null)
+                {
+                    if (userId == item.UserId)
+                    {
+                        <p>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </p>
+                    }
+                }
+            }
+        </div>
+                }
+</div>
+
+<a href="/LostStuffs/Create" class="btn btn-info">Create new</a><br />
+
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color" style="margin-left: 30%;padding-bottom: 2%;">
+
+        Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+        <input type="submit" value="Search" class="btn btn-default" /> |
+        <a> @Html.ActionLink("Back to full list", "Index") </a>
+
+    </div>
+</form>
+
+
+<tr>
+    @foreach (var item in Model)
+    {
+
+        <td>
+            <div class="container body-content" style="float:left;border:1px solid black;margin-right:10%; width:18%">
+
+                <a href="/LostStuffs/Details/@item.Id" class="text-center" style="color:black">
+                    <h3 class="text-center">@item.Name</h3>
+                    <img src="@Url.Content(item.ImagePath)" style="width:100%; height:10em; margin-bottom:13%;border:1px solid black;" />
+
+                </a>
+
+                <br />
+                <label>Description:</label>
+                <div class="table-bordered" style="border-top:1px solid black;border-bottom:1px solid black; background-color:aquamarine">
+
+                    @item.Description
+                    <br />
+                </div>
+          
+               
+                <br />
+
+                <label>Published at:</label>
+                @item.CreatedAt.ToString("dd.MM hh:mm")
+                <br />
+
+                <label>by: @item.UserName</label>
+
+                @{
+                    if (userId != null)
+                    {
+                        if (userId == item.UserId)
+                        {
+
+                            <p>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </p>
+                        }
+                    }
+                }
+             
+                <h5 style=" background-color:yellowgreen">Reward :@item.Price $</h5>
+            </div>
+        </td>
+        
+                    }
+</tr>
+   

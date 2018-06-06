@@ -1,0 +1,2 @@
+H:\Repos\ASP .NET MVC apps\ASP.NET-Lost Stuffs\LostStuffs.Services\obj\Debug\LostStuffs.Services.csprojResolveAssemblyReference.cache
+H:\Repos\ASP .NET MVC apps\ASP.NET-Lost Stuffs\LostStuffs.Services\obj\Debug\LostStuffs.Services.csproj.CoreCompileInputs.cache

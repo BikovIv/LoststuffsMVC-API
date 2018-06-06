@@ -1,0 +1,58 @@
+﻿@model LostStuffs.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+    var adsList = (List<LostStuffs.Entities.LostStuff>)ViewData["MyAdsList"];
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal" >
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        </dl>
+
+    <h2 style="border-bottom:1px solid gray">My ads</h2>
+    <table style="background-color:aliceblue">
+        <tbody>
+            
+            @{
+
+                foreach (var item in adsList)
+                {
+                    <tr style="border-bottom:1px solid gray">
+                        <td>
+                            <h3> @item.Name</h3>
+                            <h6 style="text-align:right">Updated at: @item.UpdatedAt.ToString("dd MMMM HH:mm")</h6>
+                            <h6 style="text-align:right">Published at: @item.CreatedAt.ToString("dd MMMM HH:mm")</h6>
+                            <img src="@Url.Content(item.ImagePath)"  style="width:10em;height:10em;border:1px solid black;" /><br />
+
+                            <text>@item.Description</text> <br />
+
+                            <a href="/LostStuffs/Details/@item.Id">Details</a>
+                            <a href="/LostStuffs/Edit/@item.Id">Edit</a>
+                            <a href="/LostStuffs/Delete/@item.Id">Delete</a>
+                        </td>
+
+                    </tr>
+                }
+
+            }
+        
+        </tbody>
+    </table>
+</div>

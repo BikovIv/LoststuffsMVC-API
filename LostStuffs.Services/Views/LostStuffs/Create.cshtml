@@ -1,0 +1,128 @@
+﻿@model LostStuffs.Entities.LostStuff
+
+
+@{
+    ViewBag.Title = "Create";
+ 
+
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "LostStuffs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>LostStuff</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+            <div class="form-group">
+
+                <div class="col-md-10">
+
+                    <form action="" method="post" enctype="multipart/form-data">
+
+                        <label for="file1">Main image:</label>
+                        <input type="file" name="mainImage" id="file1" accept="image/*" onchange="mainValidation()"/>
+
+                        <label for="file2">Image:</label>
+                        <input type="file" name="files" id="file2" accept="image/*" onchange="validation()" />
+
+                    </form>
+                  
+                </div>
+            </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">              
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+
+    <script type="text/javascript">
+        function mainValidation() {
+
+            var fname = (document.getElementById('file1').value).substring(12);
+            var fname1 = (document.getElementById('file2').value).substring(12);
+
+            var reg = /(.jpg|.jpeg|.png|.bmp)$/;
+                
+            if (reg.exec(fname)) {
+
+                document.getElementById('file1').value = (document.getElementById('file1').value).substring(12);
+            }
+
+            else
+            {
+                alert("file not supported!");
+                document.getElementById('file1').value = null;
+            }
+
+        }
+
+        function validation() {
+           
+            var fname = (document.getElementById('file2').value).substring(12);
+            var reg = /(.jpg|.jpeg|.png|.bmp)$/;
+
+            if (reg.exec(fname)) {
+
+                document.getElementById('file2').value = (document.getElementById('file2').value).substring(12);
+            }
+
+            else {
+                alert("file not supported!");
+                document.getElementById('file2').value = null;
+            }
+
+        }
+
+    </script>
